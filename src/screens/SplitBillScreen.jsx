@@ -1,59 +1,27 @@
 import { useState } from 'react'
 
-const members = [
-  {
-    name: 'Riya',
-    avatar: '👩',
-    items: [
-      { name: 'Margherita Pizza', price: 299 },
-      { name: 'Coke', price: 60 },
-    ],
-  },
-  {
-    name: 'Arjun',
-    avatar: '👨',
-    items: [
-      { name: 'Chicken Burger', price: 189 },
-      { name: 'French Fries', price: 99 },
-    ],
-  },
-  {
-    name: 'Sneha',
-    avatar: '👩‍💻',
-    items: [
-      { name: 'Pasta Arrabiata', price: 249 },
-    ],
-  },
-]
-
-function SplitBillScreen({ navigate }) {
+function SplitBillScreen({ navigate, members }) {
   const [expandedMember, setExpandedMember] = useState(null)
 
   const deliveryCharge = 40
   const perPersonDelivery = Math.round(deliveryCharge / members.length)
-
-  const getTotal = (items) =>
-    items.reduce((sum, item) => sum + item.price, 0)
-
+  const getTotal = (items) => items.reduce((sum, item) => sum + item.price, 0)
   const grandTotal = members.reduce((sum, m) => sum + getTotal(m.items), 0) + deliveryCharge
 
   return (
     <div className="screen">
       <button
-        onClick={() => navigate('create')}
+        onClick={() => navigate('add')}
         style={{ background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', marginBottom: '16px' }}
       >
         ←
       </button>
 
-      <h1 style={{ fontSize: '22px', fontWeight: '700', marginBottom: '4px' }}>
-        Group Cart 🛒
-      </h1>
+      <h1 style={{ fontSize: '22px', fontWeight: '700', marginBottom: '4px' }}>Group Cart 🛒</h1>
       <p style={{ color: '#666', fontSize: '14px', marginBottom: '24px' }}>
-        3 members • Domino's Pizza • 8 mins left
+        {members.length} members • Domino's Pizza • 8 mins left
       </p>
 
-      {/* Timer */}
       <div style={{
         background: '#fff5ee', border: '1.5px solid #fc8019', borderRadius: '12px',
         padding: '12px 16px', marginBottom: '24px', display: 'flex', alignItems: 'center'
@@ -65,14 +33,10 @@ function SplitBillScreen({ navigate }) {
         </div>
       </div>
 
-      {/* Member cards */}
       {members.map((member, index) => (
         <div
           key={index}
-          style={{
-            border: '1.5px solid #eee', borderRadius: '12px',
-            padding: '14px 16px', marginBottom: '12px', cursor: 'pointer'
-          }}
+          style={{ border: '1.5px solid #eee', borderRadius: '12px', padding: '14px 16px', marginBottom: '12px', cursor: 'pointer' }}
           onClick={() => setExpandedMember(expandedMember === index ? null : index)}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -106,10 +70,7 @@ function SplitBillScreen({ navigate }) {
         </div>
       ))}
 
-      {/* Grand total */}
-      <div style={{
-        background: '#f9f9f9', borderRadius: '12px', padding: '16px', marginBottom: '24px'
-      }}>
+      <div style={{ background: '#f9f9f9', borderRadius: '12px', padding: '16px', marginBottom: '24px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
           <p style={{ color: '#666', fontSize: '14px' }}>Subtotal</p>
           <p style={{ fontSize: '14px' }}>₹{grandTotal - deliveryCharge}</p>

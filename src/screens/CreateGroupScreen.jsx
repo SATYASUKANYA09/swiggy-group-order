@@ -75,7 +75,7 @@ function CreateGroupScreen({ navigate }) {
           <option value="10">10 minutes</option>
           <option value="15">15 minutes</option>
           <option value="20">20 minutes</option>
-          <option val ue="30">30 minutes</option>
+          <option value="30">30 minutes</option>
         </select>
       </div>
 
@@ -96,8 +96,8 @@ function CreateGroupScreen({ navigate }) {
               swiggy.com/group/join/{groupName.toLowerCase().replace(/ /g, '-')}-{Math.floor(Math.random() * 9000) + 1000}
             </p>
           </div>
-          <button className="btn-primary" onClick={() => navigate('split')}>
-            View Group Cart →
+          <button className="btn-primary" onClick={() => navigate('add')}>
+            Add Your Items →
           </button>
         </div>
       )}
